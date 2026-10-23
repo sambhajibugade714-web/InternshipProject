@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>College Event & Notice Board</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #f2f4f7;
+        }
+
+        header {
+            background: #263238;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        nav {
+            background: white;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px #ccc;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #263238;
+            font-weight: bold;
+            margin: 20px;
+        }
+
+        nav a:hover {
+            color: #1976d2;
+        }
+
+        .form {
+            width: 400px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #1976d2;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cards {
+            width: 85%;
+            margin: auto;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            width: 250px;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px #ccc;
+        }
+
+        .card h3 {
+            color: #1976d2;
+        }
+
+        .notice h3 {
+            color: #f57c00;
+        }
+
+        .delete {
+            background: #d32f2f;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>College Event & Notice Board</h1>
+    <p>College Events and Important Notices</p>
+</header>
+
+
+<!-- NAVIGATION -->
+
+<nav>
+
+    <a href="#events">Events</a>
+
+    <a href="#notices">Notices</a>
+
+    <a href="#addEvent">Add Event</a>
+
+    <a href="#addNotice">Add Notice</a>
+
+</nav>
+
+
+<!-- EVENTS -->
+
+<section id="events">
+
+    <h2 style="text-align:center;">College Events</h2>
+
+    <div class="cards" id="eventList">
+
+        <div class="card">
+
+            <h3>Annual Function</h3>
+
+            <p>Date: 20 October 2026</p>
+
+            <p>Venue: Auditorium</p>
+
+            <p>Annual college cultural program.</p>
+
+            <button class="delete"
+                    onclick="deleteEvent(this)">
+                Delete
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- NOTICES -->
+
+<section id="notices">
+
+    <h2 style="text-align:center;">College Notices</h2>
+
+    <div class="cards" id="noticeList">
+
+        <div class="card notice">
+
+            <h3>College Holiday</h3>
+
+            <p>
+                College will remain closed today.
+            </p>
+
+            <p>Date: 8 October 2026</p>
+
+            <button class="delete"
+                    onclick="deleteEvent(this)">
+                Delete
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ADD EVENT -->
+
+<div class="form" id="addEvent">
+
+    <h2>Add Event</h2>
+
+    <input type="text"
+           id="eventTitle"
+           placeholder="Event Name">
+
+    <input type="date"
+           id="eventDate">
+
+    <input type="text"
+           id="eventVenue"
+           placeholder="Venue">
+
+    <textarea id="eventDescription"
+              placeholder="Description"></textarea>
+
+    <button id="addEventButton">
+        Add Event
+    </button>
+
+</div>
+
+
+<!-- ADD NOTICE -->
+
+<div class="form" id="addNotice">
+
+    <h2>Add Notice</h2>
+
+    <input type="text"
+           id="noticeTitle"
+           placeholder="Notice Title">
+
+    <textarea id="noticeDescription"
+              placeholder="Notice Description"></textarea>
+
+    <input type="date"
+           id="noticeDate">
+
+    <button id="addNoticeButton">
+        Add Notice
+    </button>
+
+</div>
+
+
+<script>
+
+
+/* ADD EVENT */
+
+document.getElementById("addEventButton")
+.addEventListener("click", function() {
+
+    let title =
+        document.getElementById("eventTitle").value;
+
+    let date =
+        document.getElementById("eventDate").value;
+
+    let venue =
+        document.getElementById("eventVenue").value;
+
+    let description =
+        document.getElementById("eventDescription").value;
+
+
+    if (title === "" ||
+        date === "" ||
+        venue === "" ||
+        description === "") {
+
+        alert("Please fill all Event fields");
+
+        return;
+    }
+
+
+    let event = document.createElement("div");
+
+    event.className = "card";
+
+
+    event.innerHTML =
+
+        "<h3>" + title + "</h3>" +
+
+        "<p>Date: " + date + "</p>" +
+
+        "<p>Venue: " + venue + "</p>" +
+
+        "<p>" + description + "</p>" +
+
+        '<button class="delete" ' +
+        'onclick="deleteEvent(this)">' +
+        'Delete</button>';
+
+
+    document
+        .getElementById("eventList")
+        .appendChild(event);
+
+
+    document.getElementById("eventTitle").value = "";
+
+    document.getElementById("eventDate").value = "";
+
+    document.getElementById("eventVenue").value = "";
+
+    document.getElementById("eventDescription").value = "";
+
+});
+
+
+/* ADD NOTICE */
+
+document.getElementById("addNoticeButton")
+.addEventListener("click", function() {
+
+    let title =
+        document.getElementById("noticeTitle").value;
+
+    let description =
+        document.getElementById("noticeDescription").value;
+
+    let date =
+        document.getElementById("noticeDate").value;
+
+
+    if (title === "" ||
+        description === "" ||
+        date === "") {
+
+        alert("Please fill all Notice fields");
+
+        return;
+    }
+
+
+    let notice = document.createElement("div");
+
+    notice.className = "card notice";
+
+
+    notice.innerHTML =
+
+        "<h3>" + title + "</h3>" +
+
+        "<p>" + description + "</p>" +
+
+        "<p>Date: " + date + "</p>" +
+
+        '<button class="delete" ' +
+        'onclick="deleteEvent(this)">' +
+        'Delete</button>';
+
+
+    document
+        .getElementById("noticeList")
+        .appendChild(notice);
+
+
+    document.getElementById("noticeTitle").value = "";
+
+    document.getElementById("noticeDescription").value = "";
+
+    document.getElementById("noticeDate").value = "";
+
+});
+
+
+/* DELETE */
+
+function deleteEvent(button) {
+
+    button.parentElement.remove();
+
+}
+
+</script>
+
+</body>
+</html>
